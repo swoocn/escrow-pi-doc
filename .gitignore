@@ -1,0 +1,13 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Compiled output
+/dist
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# local env files
+.env
