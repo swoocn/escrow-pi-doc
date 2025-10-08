@@ -1,0 +1,54 @@
+name: EscrowPi API Build
+
+# Controls when the workflow will execute
+on:
+  # Triggers the workflow on push or pull request events for the "main" and "dev" branch
+  push:
+    branches: 
+      - dev
+      - staging
+      - main
+  pull_request:
+    branches:
+      - dev
+      - staging
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 🏗️ Build
+    runs-on: ubuntu-latest
+
+    env:
+      WALLET_PRIVATE_SEED: ${{ secrets.WALLET_PRIVATE_SEED }}
+      
+    # The sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+        # Backend CI/CD Process
+      - name: Install Dependencies for Backend
+        run: npm ci
+
+      - name: Execute Tests for Backend
+        run: npm run test -- --passWithNoTests
+
+      - name: Branch-specific build info
+        run: |
+          echo "Running build for branch: $GITHUB_REF_NAME"
+          if [ "$GITHUB_REF_NAME" = "dev" ]; then
+            echo "✅ Dev branch build"
+          elif [ "$GITHUB_REF_NAME" = "staging" ]; then
+            echo "✅ Staging branch build"
+          else
+            echo "✅ Main branch build"
+          fi
