@@ -18,6 +18,10 @@ const router = Router();
  *     tags: [Escrow Components]
  *     description: >
  *       This endpoint returns the "Pay With EscrowPi" button that developer apps can display in their UI.
+ * 
+ *       <p align="left">
+ *         <img src="/paywithescrowpi_button.png" alt="Pay With EscrowPi Button" width="250"/>
+ *       </p>
  *       
  *         The response includes:
  *         + `buttonImageUrl` - a URL to the branded button image.
