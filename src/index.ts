@@ -4,6 +4,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 import { swaggerOptions } from "./config/swagger";
 import escrowRoutes from "./routes/escrow.routes";
+import homeRoutes from "./routes/home.routes";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -14,6 +15,8 @@ app.use(cors());
 // Swagger setup
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use("/", homeRoutes);
 
 // API routes
 app.use("/api/escrow", escrowRoutes);
