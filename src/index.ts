@@ -3,7 +3,7 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 import { swaggerOptions } from "./config/swagger";
-import escrowRoutes from "./routes/escrow.routes";
+import escrowComponentsRoutes from "./routes/escrow-components.routes";
 import homeRoutes from "./routes/home.routes";
 
 const app = express();
@@ -16,10 +16,10 @@ app.use(cors());
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use("/", homeRoutes);
-
 // API routes
-app.use("/api/escrow", escrowRoutes);
+app.use("/api/escrow-components", escrowComponentsRoutes);
+
+app.use("/", homeRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 EscrowPi API running on http://localhost:${PORT}`);

@@ -24,9 +24,9 @@ const homeRoutes = Router()
  *         description: Internal server error
  */
 homeRoutes.get("/", (req, res) => {
-    res.status(200).json({
-        message:"Server is running"
-    })
+  res.status(200).json({
+    message:"Server is running"
+  })
 })
 
 export default homeRoutes
