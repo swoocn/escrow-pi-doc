@@ -1,4 +1,7 @@
-import { getPayWithEscrowPiButton_Logic, getPayWithEscrowPiButton_Mock } from "../../src/controller/escrowComponentsController";
+import { 
+  getPayWithEscrowPiButton_Mock, 
+  getPayWithEscrowPiLogic_Mock
+} from "../../src/controller/escrowComponentsController";
 
 describe("getPayWithEscrowPiButton_Mock", () => {
   let req: any;
@@ -30,7 +33,7 @@ describe("getPayWithEscrowPiButton_Mock", () => {
   });
 });
 
-describe("getPayWithEscrowPiButton_Logic", () => {
+describe("getPayWithEscrowPiLogic_Mock", () => {
   let req: any;
   let res: any;
 
@@ -51,7 +54,7 @@ describe("getPayWithEscrowPiButton_Logic", () => {
   });
 
   it("should return 200 with escrow payload on valid input", async () => {
-    await getPayWithEscrowPiButton_Logic(req, res);
+    await getPayWithEscrowPiLogic_Mock(req, res);
 
     expect(res.status).toHaveBeenCalledWith(200);
 
