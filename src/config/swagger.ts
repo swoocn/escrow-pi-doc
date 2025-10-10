@@ -1,3 +1,4 @@
+import path from "path";
 import { env } from "../utils/env";
 
 export const swaggerOptions = {
@@ -23,5 +24,5 @@ export const swaggerOptions = {
       },
     ],
   },
-  apis: ["./src/routes/*.ts"], // scan for @swagger annotations
+  apis: [ path.join(__dirname, '../routes/*.{ts,js}') ]
 };
