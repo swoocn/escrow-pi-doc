@@ -27,7 +27,7 @@ const router = Router();
  *         + `buttonImageUrl` - a URL to the branded button image.
  *         + `invocationId` - a temporary, unique token that would normally authorize the button to invoke EscrowPi transaction logic.
  * 
- *       **Note:** This is a mock endpoint. The returned `invocationId` is for demonstration purposes only and does not trigger real payments.
+ *       ⚠️ **Note:** This is a mock endpoint. The returned `invocationId` is for demonstration purposes only and does not trigger real payments.
  * 
  *         Frontend developers can use this to:
  *         + Render a sample button in their app.
