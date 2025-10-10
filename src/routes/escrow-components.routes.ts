@@ -1,6 +1,8 @@
 import { Router } from "express";
-
-import { getPayWithEscrowPiButton_Mock } from "../controller/escrowComponentsController";
+import { 
+  getPayWithEscrowPiButton_Mock,
+  getPayWithEscrowPiButton_Logic,
+} from "../controller/escrowComponentsController";
 
 /**
  * @swagger
@@ -39,20 +41,109 @@ const router = Router();
  *       200:
  *         description: Successful response | Returns a button image URL and a mock invocation token
  *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 buttonImageUrl:
+ *                   type: string
+ *                   example: https://cdn.escrowpi.com/buttons/pay-with-escrowpi.png
+ *                 invocationId:
+ *                   type: string
+ *                   example: payInv_abcd123
+ *                 message:
+ *                   type: string
+ *                   example: "'Pay With EscrowPi' button generated successfully"
+ *       500:
+ *         description: Internal server error 
+ */
+router.get("/pay-button", getPayWithEscrowPiButton_Mock);
+
+/**
+ * @swagger
+ * /api/escrow-components/pay-button:
+ *   post:
+ *     summary: Activate 'Pay With EscrowPi' escrow processing logic. 
+ *     tags: [Escrow Components]
+ *     description: >
+ *       This endpoint activates the escrow process for the 'Pay With EscrowPi' button. 
+ *       It executes the escrow transaction and returns an escrow payload in the response.
+ * 
+ *         ⚠️ **Note:** This is a *mock* endpoint. It does not currently perform real Pi payments or interact with the Pi Blockchain.
+ * 
+ *     requestBody:
+ *       required: true
+ *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               buttonImageUrl:
- *                 type: string
- *                 example: https://cdn.escrowpi.com/buttons/pay-with-escrowpi.png
  *               invocationId:
  *                 type: string
- *                 example: payInv_abcd1234
- *               message:
+ *                 description: The unique button invocation token received from the 'Pay With EscrowPi' GET endpoint.
+ *                 example: payInv_abc123
+ *               buyerId:
  *                 type: string
- *                 example: Mock 'Pay With EscrowPi' button generated successfully
+ *                 description: Unique identifier for the buyer initiating the transaction.
+ *                 example: user_buyer123
+ *               sellerId:
+ *                 type: string
+ *                 description: Unique identifier for the seller receiving the payment.
+ *                 example: user_seller123
+ *               amount:
+ *                 type: number
+ *                 description: Amount of Pi to be transferred in the escrow transaction.
+ *                 example: 50
+ *               orderId:
+ *                 type: string
+ *                 description: Reference to the order associated with this transaction.
+ *                 example: order_123
+ *     responses:
+ *       200:
+ *         description: Successful response | Returns escrow transaction payload
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "'Pay with EscrowPi' transaction completed successfully"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     buttonText:
+ *                       type: string
+ *                       example: Pay with EscrowPi
+ *                     escrowPayload:
+ *                       type: object
+ *                       properties:
+ *                         escrowId:
+ *                           type: string
+ *                           example: escrow_123
+ *                         buyerId:
+ *                           type: string
+ *                           example: user_buyer123
+ *                         sellerId:
+ *                           type: string
+ *                           example: user_seller123
+ *                         orderId:
+ *                           type: string
+ *                           example: order_123
+ *                         amount:
+ *                           type: number
+ *                           example: 50
+ *                         createdAt:
+ *                           type: string
+ *                           example: 2025-10-10T14:00:00.000Z
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error     
  */
-router.get("/pay-button", getPayWithEscrowPiButton_Mock);
+router.post("/pay-button", getPayWithEscrowPiButton_Logic);
 
 export default router;
