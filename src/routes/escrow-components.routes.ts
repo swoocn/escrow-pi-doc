@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { 
   getPayWithEscrowPiButton_Mock,
-  getPayWithEscrowPiButton_Logic,
+  getPayWithEscrowPiLogic_Mock,
 } from "../controller/escrowComponentsController";
 
 /**
@@ -90,14 +90,14 @@ router.get("/pay-button", getPayWithEscrowPiButton_Mock);
  *                 type: string
  *                 description: Unique identifier for the seller receiving the payment.
  *                 example: user_seller123
- *               amount:
- *                 type: number
- *                 description: Amount of Pi to be transferred in the escrow transaction.
- *                 example: 50
  *               orderId:
  *                 type: string
  *                 description: Reference to the order associated with this transaction.
  *                 example: order_123
+ *               amount:
+ *                 type: number
+ *                 description: Amount of Pi to be transferred in the escrow transaction.
+ *                 example: 50
  *     responses:
  *       200:
  *         description: Successful response | Returns escrow transaction payload
@@ -112,12 +112,12 @@ router.get("/pay-button", getPayWithEscrowPiButton_Mock);
  *                 message:
  *                   type: string
  *                   example: "'Pay with EscrowPi' transaction completed successfully"
- *                 data:
+ *                 escrowPayload:
  *                   type: object
  *                   properties:
- *                     buttonText:
+ *                     escrowId:
  *                       type: string
- *                       example: Pay with EscrowPi
+ *                       example: escrow_abc123
  *                     escrowPayload:
  *                       type: object
  *                       properties:
@@ -133,17 +133,32 @@ router.get("/pay-button", getPayWithEscrowPiButton_Mock);
  *                         orderId:
  *                           type: string
  *                           example: order_123
- *                         amount:
+ *                         amountBreakdown:
+ *                           type: object
+ *                           properties:
+ *                             paymentAmount:
+ *                               type: number
+ *                               example: 50
+ *                             payerStake:
+ *                               type: number
+ *                               example: 2.5
+ *                             gasFees:
+ *                               type: number
+ *                               example: 0.01
+ *                             escrowServiceCharge:
+ *                               type: number
+ *                               example: 0.5
+ *                         totalAmount:
  *                           type: number
- *                           example: 50
+ *                           example: 53.01
  *                         createdAt:
  *                           type: string
  *                           example: 2025-10-10T14:00:00.000Z
  *       400:
- *         description: Bad request
+ *         description: Bad request | Missing or invalid fields
  *       500:
  *         description: Internal server error     
  */
-router.post("/pay-button", getPayWithEscrowPiButton_Logic);
+router.post("/pay-button", getPayWithEscrowPiLogic_Mock);
 
 export default router;
