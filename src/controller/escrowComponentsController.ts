@@ -11,7 +11,7 @@ export const getPayWithEscrowPiButton_Mock = async (req: Request, res: Response)
   });
 };
 
-export const getPayWithEscrowPiButton_Logic = async (req: Request, res: Response) => {
+export const getPayWithEscrowPiLogic_Mock = async (req: Request, res: Response) => {
   try {
     const { invocationId, buyerId, sellerId, amount, orderId } = req.body;
     
