@@ -79,3 +79,14 @@ export const getMyEscrowPiButton_Mock = async (req: Request, res: Response) => {
     message: "Mock 'My EscrowPi' button generated successfully",
   });
 };
+
+export const getReceiveWithEscrowPiButton_Mock = async (req: Request, res: Response) => {
+  // Mock invocation ID (random unique token)
+  const mockInvocationId = `payInv_${Math.random().toString(36).substring(2, 10)}`;
+
+  res.status(200).json({
+    buttonImageUrl: "/receivewithescrowpi_button.png",
+    invocationId: mockInvocationId,
+    message: "Mock 'Receive with EscrowPi' button generated successfully",
+  });
+};
