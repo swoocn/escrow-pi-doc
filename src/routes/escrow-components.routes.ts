@@ -3,6 +3,7 @@ import {
   getMyEscrowPiButton_Mock,
   getPayWithEscrowPiButton_Mock,
   getPayWithEscrowPiLogic_Mock,
+  getReceiveWithEscrowPiButton_Mock,
 } from "../controller/escrowComponentsController";
 
 /**
@@ -37,7 +38,7 @@ const router = Router();
  *         + Test integration with EscrowPi logic endpoints; mock flow.
  *         + Document the expected shape of a real EscrowPi button API response.
  * 
- *       When the real API is implemented, this `invocationId` would be validated and used to authorize the actual Pay with EscrowPi transaction. 
+ *       When the real API is implemented, this `invocationId` would be validated and used to authorize the actual "Pay with EscrowPi" transaction. 
  *     responses:
  *       200:
  *         description: Successful response | Returns a button image URL and a mock invocation token
@@ -186,7 +187,7 @@ router.post("/pay-button", getPayWithEscrowPiLogic_Mock);
  *         + Test integration with EscrowPi logic endpoints; mock flow.
  *         + Document the expected shape of a real EscrowPi button API response.
  * 
- *       When the real API is implemented, this `invocationId` would be validated and used to authorize the actual My EscrowPi transaction. 
+ *       When the real API is implemented, this `invocationId` would be validated and used to authorize the actual "My EscrowPi" transaction. 
  *     responses:
  *       200:
  *         description: Successful response | Returns a button image URL and a mock invocation token
@@ -208,5 +209,52 @@ router.post("/pay-button", getPayWithEscrowPiLogic_Mock);
  *         description: Internal server error 
  */
 router.get("/my-button", getMyEscrowPiButton_Mock);
+
+/**
+ * @swagger
+ * /api/escrow-components/receive-button:
+ *   get:
+ *     summary: Get a 'Receive with EscrowPi' button with a unique invocation token
+ *     tags: [Escrow Components]
+ *     description: >
+ *       This endpoint returns the "Receive with EscrowPi" button that developer apps can display in their UI.
+ * 
+ *       <p align="left">
+ *         <img src="/receivewithescrowpi_button.png" alt="Receive with EscrowPi Button" width="250"/>
+ *       </p>
+ *       
+ *         The response includes:
+ *         + `buttonImageUrl` - a URL to the branded button image.
+ *         + `invocationId` - a temporary, unique JWT token that would normally authorize the button to invoke EscrowPi retrieval logic.
+ * 
+ *       ⚠️ **Note:** This is a mock endpoint. The returned `invocationId` is for demonstration purposes only and does not fetch payments.
+ * 
+ *         Frontend developers can use this to:
+ *         + Render a sample button in their app.
+ *         + Test integration with EscrowPi logic endpoints; mock flow.
+ *         + Document the expected shape of a real EscrowPi button API response.
+ * 
+ *       When the real API is implemented, this `invocationId` would be validated and used to authorize the actual "Receive with EscrowPi" transaction. 
+ *     responses:
+ *       200:
+ *         description: Successful response | Returns a button image URL and a mock invocation token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 buttonImageUrl:
+ *                   type: string
+ *                   example: https://cdn.escrowpi.com/buttons/receive-with-escrowpi.png
+ *                 invocationId:
+ *                   type: string
+ *                   example: payInv_abcd123
+ *                 message:
+ *                   type: string
+ *                   example: "'Receive with EscrowPi' button generated successfully"
+ *       500:
+ *         description: Internal server error 
+ */
+router.get("/receive-button", getReceiveWithEscrowPiButton_Mock);
 
 export default router;

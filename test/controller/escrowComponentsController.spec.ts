@@ -1,7 +1,8 @@
 import { 
   getMyEscrowPiButton_Mock,
   getPayWithEscrowPiButton_Mock, 
-  getPayWithEscrowPiLogic_Mock
+  getPayWithEscrowPiLogic_Mock,
+  getReceiveWithEscrowPiButton_Mock
 } from "../../src/controller/escrowComponentsController";
 
 describe("getPayWithEscrowPiButton_Mock", () => {
@@ -108,6 +109,36 @@ describe("getMyEscrowPiButton_Mock", () => {
     expect(jsonResponse).toHaveProperty(
       "message",
       "Mock 'My EscrowPi' button generated successfully"
+    );
+  });
+});
+
+describe("getReceiveWithEscrowPiButton_Mock", () => {
+  let req: any;
+  let res: any;
+
+  beforeEach(() => {
+    req = {};
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+  });
+
+  it("should return 200 with buttonImageUrl, invocationId, and message", async () => {
+    
+    await getReceiveWithEscrowPiButton_Mock(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalled();
+
+    const jsonResponse = (res.json as jest.Mock).mock.calls[0][0];
+    expect(jsonResponse).toHaveProperty("buttonImageUrl", "/receivewithescrowpi_button.png");
+    expect(jsonResponse).toHaveProperty("invocationId");
+    expect(jsonResponse.invocationId).toMatch(/^payInv_/);
+    expect(jsonResponse).toHaveProperty(
+      "message",
+      "Mock 'Receive with EscrowPi' button generated successfully"
     );
   });
 });
