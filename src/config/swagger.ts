@@ -12,6 +12,11 @@ export const swaggerOptions = {
         name: "Map of Pi Team",
         email: "philip@mapofpi.com"
       },
+      "x-logo": {
+        url: "/escrowpi-api-title-min_upscale.png",
+        altText: "EscrowPi Logo",
+        backgroundColor: "#232423",
+      }
     },
     servers: [
       {
