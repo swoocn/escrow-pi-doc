@@ -1,16 +1,24 @@
+import dotenv from "dotenv";
+
+import "./config/sentryConnection"; // initializes Sentry
+
 import express from "express";
 import path from "path";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 
+import { setupExpressErrorHandler } from "@sentry/node";
 import { swaggerOptions } from "./config/swagger";
 import escrowComponentsRoutes from "./routes/escrow-components.routes";
 import homeRoutes from "./routes/home.routes";
+import { env } from "./utils/env";
+
+const PORT = env.PORT;
+
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 4000;
-
 app.use(express.json());
 app.use(cors());
 
@@ -97,6 +105,9 @@ app.use("/api/escrow-components", escrowComponentsRoutes);
 app.use("/", homeRoutes);
 
 app.listen(PORT, () => {
-  console.log(`🚀 EscrowPi API running on http://localhost:${PORT}`);
-  console.log(`📘 Swagger Docs available at http://localhost:${PORT}/api-docs`);
+  console.log(`📘 EscrowPi API Swagger Docs available at http://localhost:${PORT}/api-docs`);
+  console.log(`📘 EscrowPi API Redoc Docs available at http://localhost:${PORT}/api-docs_`);
 });
+
+// Sentry Express error handler
+setupExpressErrorHandler(app);

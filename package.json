@@ -12,10 +12,13 @@
   "author": "Map of Pi Team",
   "license": "PiOS",
   "dependencies": {
+    "@sentry/node": "^10.19.0",
+    "@sentry/profiling-node": "^10.19.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.18.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
